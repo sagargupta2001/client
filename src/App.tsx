@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+const products = [
+    {name: 'product1', price: 100.00},
+    {name: 'product2', price: 200.00},
+    {name: 'product3', price: 300.00},
+    {name: 'product4', price: 400.00},
+]
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <h1>S-kart</h1>
+        <ul>
+            {products.map(item => (
+                <li key={item.name}>{item.name} - {item.price}</li>
+            ))}
+        </ul>
     </div>
   );
 }
