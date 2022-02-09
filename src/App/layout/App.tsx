@@ -1,6 +1,8 @@
-import {useEffect, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import {Product} from "../models/products";
 import Catalog from "../../features/catalog/Catalog";
+import {Container, CssBaseline} from "@mui/material";
+import Header from "./Header";
 
 function App() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -24,10 +26,13 @@ function App() {
     }
 
   return (
-    <div>
-        <h1>S-kart</h1>
-        <Catalog products={products} addProduct={addProduct}/>
-    </div>
+    <Fragment>
+        <CssBaseline />
+        <Header />
+        <Container>
+            <Catalog products={products} addProduct={addProduct}/>
+        </Container>
+    </Fragment>
   );
 }
 
