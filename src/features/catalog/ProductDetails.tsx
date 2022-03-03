@@ -1,8 +1,8 @@
 import {Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {Product} from "../../App/models/products";
+import agent from "../../App/api/agent";
 
 export default function ProductDetails() {
     const {id} = useParams<{id: string}>();
@@ -10,9 +10,9 @@ export default function ProductDetails() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`https://localhost:44335/api/Products/${id}`)
-            .then(response => setProduct(response.data))
-            .catch(error => console.log(error))
+        agent.Catalog.details(parseInt(id))
+            .then(response => setProduct(response))
+            .catch(error => console.log(error.response))
             .finally(() => setLoading(false))
     }, [id])
 
