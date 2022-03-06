@@ -3,6 +3,7 @@ import {AppBar, Badge, Box, IconButton, List, ListItem, Toolbar, Typography} fro
 import MUISwitch from "./MUISwitch";
 import {Link, NavLink} from "react-router-dom";
 import {ShoppingCart} from "@mui/icons-material";
+import {useStoreContext} from "../context/StoreContext";
 
 interface Props {
     darkMode: boolean;
@@ -33,6 +34,9 @@ const navStyles = {
 }
 
 export default function Header({darkMode, handleThemeChange}: Props) {
+    const {basket} = useStoreContext();
+    const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
+
     return (
         <Fragment>
             <AppBar position='static' sx={{mb: 4}}>
@@ -69,7 +73,7 @@ export default function Header({darkMode, handleThemeChange}: Props) {
 
                     <Box display='flex' alignItems='center'>
                         <IconButton component={Link} to='/basket' size='large' sx={{color: 'inherit'}}>
-                            <Badge badgeContent={4} color='secondary'>
+                            <Badge badgeContent={itemCount} color='secondary'>
                                 <ShoppingCart />
                             </Badge>
                         </IconButton>
