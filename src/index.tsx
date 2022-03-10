@@ -5,22 +5,17 @@ import App from './App/layout/App';
 import reportWebVitals from './reportWebVitals';
 import { Router } from "react-router";
 import { createBrowserHistory } from "history";
-import {StoreProvider} from "./App/context/StoreContext";
 import {Provider} from "react-redux";
-import { configureStore } from './App/store/ConfigureStore';
-
-const store = configureStore();
+import { store } from './App/store/ConfigureStore';
 
 export const history = createBrowserHistory();
 
 ReactDOM.render(
   <React.StrictMode>
       <Router history={history}>
-          <StoreProvider>
-              <Provider store={store}>
-                  <App />
-              </Provider>
-          </StoreProvider>
+          <Provider store={store}>
+              <App />
+          </Provider>
       </Router>
   </React.StrictMode>,
   document.getElementById('root')
