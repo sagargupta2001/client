@@ -24,7 +24,6 @@ export default function ProductDetails() {
     const {id} = useParams<{id: string}>();
     const product = useAppSelector(state => productSelectors.selectById(state, id));
     const {status: productStatus} = useAppSelector(state => state.catalog);
-    const [loading] = useState(true);
     const [quantity, setQuantity] = useState(0);
     const item = basket?.items.find(i => i.productId === product?.id);
 
@@ -101,7 +100,7 @@ export default function ProductDetails() {
                     <Grid item xs={6}>
                         <LoadingButton
                             disabled={item?.quantity === quantity || (!item && quantity === 0)}
-                            loading={status.includes('pendingRemoveItem' + item?.productId)}
+                            loading={status.includes('pending')}
                             onClick={handleUpdateCart}
                             sx={{height: '55px'}}
                             color='primary'
