@@ -7,22 +7,22 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Paper } from '@mui/material';
-import { Link } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {FieldValues, useForm} from "react-hook-form";
-import agent from "../../App/api/agent";
 import { LoadingButton } from '@material-ui/lab';
+import {useAppDispatch} from "../../App/store/ConfigureStore";
+import {signInUser} from "./accountSlice";
 
 export default function Login() {
+    const history = useHistory();
+    const dispatch = useAppDispatch();
     const {register, handleSubmit, formState: {isSubmitting, errors, isValid}} = useForm({
-        mode: 'onTouched'
+        mode: 'all'
     });
 
     async function submitForm(data: FieldValues) {
-        try {
-            await agent.Account.login(data);
-        } catch (error) {
-            console.log(error);
-        }
+        await dispatch(signInUser(data));
+        history.push('/catalog');
     }
 
     return (
