@@ -19,6 +19,7 @@ import {fetchBasketAsync} from "../../features/basket/basketSlice";
 import Register from "../../features/account/Register";
 import Login from "../../features/account/Login";
 import {fetchCurrentUser} from "../../features/account/accountSlice";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
     const dispatch = useAppDispatch();
@@ -38,7 +39,7 @@ function App() {
     }, [initApp])
 
     const [darkMode, setDarkMode] = useState(false);
-    const paletteType = darkMode ? 'dark' : 'light';
+    const paletteType = darkMode ? 'dark' : 'light'
     const theme = createTheme({
         palette: {
             mode: paletteType,
@@ -47,36 +48,35 @@ function App() {
             }
         }
     })
-    
+
     function handleThemeChange() {
         setDarkMode(!darkMode);
     }
 
     if (loading) return <LoadingComponent message='Initialising app...' />
 
-
-  return (
-    <ThemeProvider theme={theme}>
-        <ToastContainer position='bottom-right' hideProgressBar/>
-        <CssBaseline />
-        <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
-        <Container>
-            <Switch>
-                <Route exact path='/' component={HomePage} />
-                <Route exact path='/catalog' component={Catalog} />
-                <Route path='/catalog/:id' component={ProductDetails} />
-                <Route path='/about' component={AboutPage} />
-                <Route path='/contact' component={ContactPage} />
-                <Route path='/server-error' component={ServerError} />
-                <Route path='/basket' component={BasketPage} />
-                <Route path='/checkout' component={CheckoutPage} />
-                <Route path='/login' component={Login} />
-                <Route path='/register' component={Register} />
-                <Route component={NotFound} />
-            </Switch>
-        </Container>
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <ToastContainer position='bottom-right' hideProgressBar theme='colored' />
+            <CssBaseline />
+            <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
+            <Container>
+                <Switch>
+                    <Route exact path='/' component={HomePage} />
+                    <Route exact path='/catalog' component={Catalog} />
+                    <Route path='/catalog/:id' component={ProductDetails} />
+                    <Route path='/about' component={AboutPage} />
+                    <Route path='/contact' component={ContactPage} />
+                    <Route path='/server-error' component={ServerError} />
+                    <Route path='/basket' component={BasketPage} />
+                    <PrivateRoute path='/checkout' component={CheckoutPage} />
+                    <Route path='/login' component={Login} />
+                    <Route path='/register' component={Register} />
+                    <Route component={NotFound} />
+                </Switch>
+            </Container>
+        </ThemeProvider>
+    );
 }
 
 export default App;
