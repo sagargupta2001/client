@@ -4,6 +4,7 @@ import agent from "../../App/api/agent";
 import LoadingComponent from "../../App/layout/LoadingComponent";
 import {Order} from "../../App/models/order";
 import {currencyFormat} from "../../App/util/util";
+import OrderDetailed from "./OrderDetailed";
 
 export default function Orders() {
     const [orders, setOrders] = useState<Order[] | null>(null);
@@ -35,7 +36,7 @@ export default function Orders() {
                         <TableCell align="right">Total</TableCell>
                         <TableCell align="right">Order Date</TableCell>
                         <TableCell align="right">Order Status</TableCell>
-                        <TableCell align="right"></TableCell>
+                        <TableCell align="right"/>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -51,7 +52,9 @@ export default function Orders() {
                             <TableCell align="right">{order.orderDate.split('T')[0]}</TableCell>
                             <TableCell align="right">{order.orderStatus}</TableCell>
                             <TableCell align="right">
-                                <Button>View</Button>
+                                <Button onClick={() => setSelectedOrderNumber(order.id)}>
+                                    View
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}
